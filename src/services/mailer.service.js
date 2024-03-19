@@ -30,7 +30,7 @@ class SendMail {
     sendEmail = async (to, sub, message, attachements = null, cc = null, bcc = null) => {
         try {
             let response = await this._transport.sendMail({
-                from: "no-reply@sandeshbhattarai.com.np",
+                from: "no-reply@nareshtharu.com.np",
                 to: to,
                 subject: sub,
                 // text: "Plaintext version of the message",

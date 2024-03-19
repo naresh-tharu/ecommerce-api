@@ -23,13 +23,13 @@ class AuthController {
                     if (userDetail.status && userDetail.status === 'active') {
                         let token = jwt.sign({
                             id: userDetail._id
-                        }, "sandesh123", {
+                        }, process.env.JWT_SECRET, {
                             expiresIn: "1 day"
                         })
 
                         let refreshToken = jwt.sign({
                             id: userDetail._id
-                        }, "sandesh123", {
+                        }, process.env.JWT_SECRET, {
                             expiresIn: "3 days"
                         })
 

@@ -74,13 +74,6 @@ app.use("/api/v1", routes);
 app.use("/api/v2", routesV2)
 
 
-// router.get("/url", (req, res, next) => {
-//     res.json();
-// })
-
-// app.use(router);
-
-
 // 404 route in express
 app.use((req, res, next) => {
     next({ code: 404, msg: "Resouce Not found" })
@@ -109,16 +102,14 @@ app.use((error, req, res, next) => {
         meta: null
     })
 })
+const port = process.env.PORT || 9005;
 
-
-server.listen(process.env.PORT || 9005, (err) => {
-    console.log(process.env.DB_URL)
-    if (err) {
-        console.log("Error listening to port ")
+server.listen(port, 'localhost', (err) => {
+    if (!err) {
+        console.log(`server is running to the port: ${port}`)
+        console.log(`Press ctrl+c to disconnect the server...`)
     } else {
-        console.log("Server is running to port 443")
-        console.log("Press CTRL+D to disconnect...")
+        console.log(`Server error to the port:${port}`)
     }
 })
-
 
