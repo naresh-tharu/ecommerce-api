@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const dotenv = require('dotenv')
+dotenv.config();
 const userSvc = require("../services/user.service");
 
 const authCheck = async (req, res, next) => {
@@ -29,7 +31,7 @@ const authCheck = async (req, res, next) => {
         }
 
 
-        let data = jwt.verify(token, "sandesh123");
+        let data = jwt.verify(token, process.env.JWT_SECRET);
 
         let userDetail = await userSvc.getUserById(data.id);
 

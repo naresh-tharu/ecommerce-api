@@ -8,7 +8,6 @@ class UserService {
             let rules = Joi.object({
                 name: Joi.string().min(3).max(30).required(),
                 email: Joi.string().email().required(),
-                // password: Joi.string().min(8).max(25).required(),
                 phone: Joi.string().allow(null, ''),
                 role: Joi.string().pattern(/customer|seller|admin/).default('customer'),
                 image: Joi.string(),
@@ -37,7 +36,6 @@ class UserService {
             return response;
 
         } catch (exception) {
-            // console.log("exception", exception)
             throw exception.details[0].message
         }
     }
@@ -54,7 +52,6 @@ class UserService {
                 return response;
 
             } catch (exception) {
-                // console.log("exception", exception)
                 throw exception.details[0].message
             }
         }
@@ -62,8 +59,6 @@ class UserService {
 
     createUser = async (data) => {
         try {
-            // json 
-            // let response = await this._db.collection('users').insertOne(data);
             let user = new UserModel(data);
             // let user  =UserModel.create(data)
             return await user.save();   // store the data in db
@@ -74,7 +69,6 @@ class UserService {
 
     getUserByEmail = async (userCred) => {
         try {
-            // let userDetail = await this._db.collection('users').findOne(userCred);  // {}
             let userDetail = await UserModel.findOne({ email: userCred.email })
             return userDetail;
         } catch (err) {
@@ -84,7 +78,6 @@ class UserService {
 
     getUserByType = async (role) => {
         try {
-            // let userDetail = await this._db.collection('users').findOne(userCred);  // {}
             let userDetail = await UserModel.find({ role: role })
             return userDetail;
         } catch (err) {
@@ -94,9 +87,6 @@ class UserService {
 
     updateUser = async (data, filter) => {
         try {
-            // let response = await this._db.collection("users").updateOne(filter, {
-            //     $set: data
-            // })
             let response = await UserModel.updateOne(filter, {
                 $set: data
             })
@@ -108,7 +98,6 @@ class UserService {
 
     deleteUser = async (filter) => {
         try {
-            // let response = await this._db.collection('users').deleteOne(filter);
             let response = await UserModel.deleteOne(filter);
             return response;
         } catch (exception) {

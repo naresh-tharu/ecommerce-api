@@ -15,10 +15,7 @@ class AuthController {
             let data = req.body;
             await userSvc.validateLogin(data);
             let userDetail = await userSvc.getUserByEmail(data);
-
             if (userDetail) {
-                // password check 
-                // console.log(userDetail, data)
                 if (bcrypt.compareSync(data.password, userDetail.password)) {
                     if (userDetail.status && userDetail.status === 'active') {
                         let token = jwt.sign({
@@ -71,8 +68,6 @@ class AuthController {
 
             data.status = 'inactive';
             data.activationToken = helpers.randomString(100);
-            // TODO: send an email to registered account for the activation with token
-            //
             emailObj.sendEmail(
                 data.email,
                 "Activate your account!!",
@@ -105,9 +100,6 @@ class AuthController {
 
             await userSvc.validatePassword(payload);
 
-            // bcrypt
-            // str abc => bcrypt() => xyz, cde, asd
-            // bcrypt bcryptjs
             let password = bcrypt.hashSync(payload.password, 10)
             let updateUserResponse = await userSvc.updateUser({
                 password: password,
@@ -137,10 +129,6 @@ class AuthController {
 
     }
 
-    logout = (req, res, next) => {
-
-    }
-
     updatePassword = (req, res, next) => {
 
     }
@@ -159,13 +147,14 @@ class AuthController {
             let authUser = req.authUser;
             let token = jwt.sign({
                 id: authUser._id
-            }, "sandesh123", {
+           
+            }, process.env.JWT_SECRET, {
                 expiresIn: "1 day"
             })
 
             let refreshToken = jwt.sign({
                 id: authUser._id
-            }, "sandesh123", {
+            }, process.env.JWT_SECRET, {
                 expiresIn: "3 days"
             })
 

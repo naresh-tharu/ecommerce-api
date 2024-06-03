@@ -11,15 +11,12 @@ const dirPath = (req, res, next) => {
     next()
 }
 
-// public/uploads/users/fileupload.ext
-
 
 router.post("/register",dirPath, uploader.single('image'), authCtrl.register);
 
 router.get("/verify/:token", authCtrl.getUserFromActivationToken);
 router.post('/active/:token', authCtrl.activateUser)
 router.post('/forget-password', authCtrl.forgetPassword)
-router.post("/logout", authCtrl.logout)
 router.post("/password-reset" ,authCtrl.updatePassword)
 
 router.get("/refresh-token", authCheck, authCtrl.refreshToken)

@@ -55,13 +55,8 @@ socketio.on("connection", (socket) => {
 
 })
 
-
-
-
 app.use("/assets", express.static(process.cwd() + "/public"))
 
-
-// body 
 // body-> content type => json , urlencoded
 app.use(express.json());
 app.use(express.urlencoded({
@@ -94,7 +89,6 @@ app.use((error, req, res, next) => {
         msg = error.message;
         data = null
     }
-    // console.log("TODO: Error on multer: ", error);
     res.status(statusCode).json({
         data: data,
         msg: msg,

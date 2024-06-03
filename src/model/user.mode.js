@@ -31,6 +31,9 @@ const UserSchema = new mongoose.Schema({
     activationToken: {
         type: String
     },
+    refreshToken:String,
+    forgetToken:String,
+    validateTill:String,
     image: String, 
     address: {
         shipping: String
