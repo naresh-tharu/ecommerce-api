@@ -129,6 +129,14 @@ class UserService {
             throw err;
         }
     }
+    getUserByFilter=async(filter={})=>{
+        try{
+            let userDetail = await UserModel.find(filter)
+            return userDetail
+        }catch(exception){
+            throw exception
+        }
+    }
 
 }
 
